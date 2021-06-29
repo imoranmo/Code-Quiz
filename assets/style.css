@@ -16,8 +16,14 @@ header {
     font-size: 40px;
 }
 
-.intro {
+main {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+.intro {
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-content: center;
@@ -30,7 +36,7 @@ header {
     align-items: center;
 }
 
-button {
+.control {
     font-size: 24px;
     height: 100px;
     width: 150px;
@@ -42,4 +48,31 @@ button {
     border: none;
     box-shadow: 0 9px #999;
 
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding: 60px;
+    border-radius: 30px 30px 30px 30px;
+    text-align: left;
+}
+
+.option {
+  text-align: left;
+  font-size: larger;
+  height: 50px;
+}
+
+.timer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items:flex-end; 
 }
