@@ -54,7 +54,7 @@ main {
 }
 
 .question {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-content: center;
@@ -91,7 +91,7 @@ main {
 }
 
 .Results {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-content: center;
@@ -110,4 +110,13 @@ main {
 .Score {
     text-align: center;
    font-size: 30px;
+}
+
+.Answer {
+    visibility: hidden;
+}
+
+.Next {
+
+    visibility: hidden;
 }
