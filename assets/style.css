@@ -18,12 +18,14 @@ header {
 
 main {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-around;
+    align-content: center;
+    justify-content: space-between;
   }
 
 .intro {
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
@@ -34,6 +36,7 @@ main {
     padding: 60px;
     border-radius: 30px 30px 30px 30px;
     align-items: center;
+    margin-bottom: 5%;
 }
 
 .control {
@@ -62,6 +65,7 @@ main {
     padding: 60px;
     border-radius: 30px 30px 30px 30px;
     text-align: left;
+    margin-bottom: 5%;
 }
 
 .option {
@@ -73,6 +77,37 @@ main {
 .timer {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    align-items:flex-end; 
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.timer h3{
+    padding-right: 1%;
+    align-self: center;
+}
+.count{
+    font-size: 30px;
+}
+
+.Results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding: 60px;
+    border-radius: 30px 30px 30px 30px;
+    text-align: left;
+}
+.TMessage {
+   text-align: center;
+   font-size: 50px;
+}
+.Score {
+    text-align: center;
+   font-size: 30px;
 }
