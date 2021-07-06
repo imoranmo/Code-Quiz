@@ -120,3 +120,8 @@ main {
 
     visibility: hidden;
 }
+
+button {
+
+    background-color: #dadbdb;
+}
