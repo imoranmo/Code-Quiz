@@ -9,6 +9,7 @@ var response4 = document.querySelector(".response4");
 var ScoreList = document.querySelector("#high");
 var ScoreForm = document.querySelector("#initials");
 var InitialsInput = document.querySelector("#input");
+var FinalMessage = document.querySelector(".TMessage");
 
 
 var RightCounter= 0;
@@ -100,6 +101,7 @@ function Answer1() {
     response1.style.color  = "white"; 
     document.querySelector(".Answer").textContent = "Sorry, Wrong Answer!";
     document.querySelector(".Answer").style.color = "red";
+    timerCount -5;
     }
 
 }
@@ -127,6 +129,7 @@ function Answer2() {
     document.querySelector(".Answer").style.visibility = "visible"; 
     document.querySelector(".Answer").textContent = "Sorry, Wrong Answer!";
     document.querySelector(".Answer").style.color = "red";
+    timerCount -5;
     }
 
 }
@@ -154,6 +157,7 @@ function Answer3() {
     document.querySelector(".Answer").style.visibility = "visible"; 
     document.querySelector(".Answer").textContent = "Sorry, Wrong Answer!";
     document.querySelector(".Answer").style.color = "red";
+    timerCount -5;
     }
 
 }
@@ -176,11 +180,12 @@ function Answer4() {
     document.querySelector(".Answer").style.color = "green";
 }
     else {
-    response1.style.backgroundColor  = "red"; 
-    response1.style.color  = "white"; 
+    response4.style.backgroundColor  = "red"; 
+    response4.style.color  = "white"; 
     document.querySelector(".Answer").style.visibility = "visible"; 
     document.querySelector(".Answer").textContent = "Sorry, Wrong Answer!";
     document.querySelector(".Answer").style.color = "red";
+    timerCount -5;
     }
 
 }
@@ -188,6 +193,8 @@ function Answer4() {
 function StartGame () {
     document.querySelector(".intro").style.display = "none";
     document.querySelector(".question").style.display = "flex";
+    timerCount = 60;
+    startTimer ();
     Question1();
     NextButton.addEventListener("click", Question2); 
 
@@ -263,3 +270,32 @@ function init() {
   });
   
   init()
+
+function winGame() {
+  FinalMessage.textContent = "ALL DONE!!! ";
+}
+
+function loseGame() {
+  FinalMessage.textContent = "TIMES UP!";
+}
+
+function startTimer() {
+  
+  timer = setInterval(function() {
+    timerCount--;
+    timerElement.textContent = timerCount;
+    if (timerCount >= 0) {
+      
+      if ( RightCounter >4 && timerCount > 0) {
+  
+        clearInterval(timer);
+        winGame();
+      }
+    }
+  
+    if (timerCount === 0) {
+      clearInterval(timer);
+      loseGame();
+    }
+  }, 1000);
+}
