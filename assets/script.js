@@ -101,7 +101,7 @@ function Answer1() {
     response1.style.color  = "white"; 
     document.querySelector(".Answer").textContent = "Sorry, Wrong Answer!";
     document.querySelector(".Answer").style.color = "red";
-    timerCount -5;
+    timerCount = timerCount - 10;
     }
 
 }
@@ -129,7 +129,7 @@ function Answer2() {
     document.querySelector(".Answer").style.visibility = "visible"; 
     document.querySelector(".Answer").textContent = "Sorry, Wrong Answer!";
     document.querySelector(".Answer").style.color = "red";
-    timerCount -5;
+    timerCount = timerCount - 10;
     }
 
 }
@@ -157,7 +157,7 @@ function Answer3() {
     document.querySelector(".Answer").style.visibility = "visible"; 
     document.querySelector(".Answer").textContent = "Sorry, Wrong Answer!";
     document.querySelector(".Answer").style.color = "red";
-    timerCount -5;
+    timerCount = timerCount - 10;
     }
 
 }
@@ -185,7 +185,7 @@ function Answer4() {
     document.querySelector(".Answer").style.visibility = "visible"; 
     document.querySelector(".Answer").textContent = "Sorry, Wrong Answer!";
     document.querySelector(".Answer").style.color = "red";
-    timerCount -5;
+    timerCount = timerCount - 10;
     }
 
 }
@@ -197,6 +197,9 @@ function StartGame () {
     startTimer ();
     Question1();
     NextButton.addEventListener("click", Question2); 
+    ScoreForm.addEventListener("submit", function(){
+    document.querySelector("#initials").style.visibility = "hidden";
+    })
 
 }
 
@@ -211,7 +214,7 @@ function ShowScore() {
       var HighScoreIntials = HighScoreIntial[i];
   
       var li = document.createElement("li");
-      li.textContent = HighScore + " " + HighScoreIntials;
+      li.textContent = HighScore + " High Score of " + HighScoreIntials;
       li.setAttribute("data-index", i);
   
       ScoreList.appendChild(li);
@@ -241,7 +244,7 @@ function init() {
   
   ScoreForm.addEventListener("submit", function(event) {
     event.preventDefault();
-  
+    
     var ScoreText = InitialsInput.value.trim();
     var FinalScore = RightCounter
     if (ScoreText === "") {
@@ -251,16 +254,15 @@ function init() {
     HighScores.push(ScoreText);
     HighScoreIntial.push(FinalScore);
     ScoreList.value = "";
-  
     storedScores();
     ShowScore();
   });
   
   ScoreList.addEventListener("click", function(event) {
     var element = event.target;
-  
-    if (element.matches("button") === true) {
 
+    if (element.matches("button") === true) {
+     
       var index = element.parentElement.getAttribute("data-index");
       HighScores.splice(index, 1);
   
@@ -273,10 +275,16 @@ function init() {
 
 function winGame() {
   FinalMessage.textContent = "ALL DONE!!! ";
+  clearInterval(timer);
 }
 
 function loseGame() {
+  document.querySelector(".intro").style.display = "none";
+  document.querySelector(".question").style.display = "none";
+  document.querySelector(".Results").style.display = "flex";
+  document.querySelector(".Score").textContent = "Your Score is " + RightCounter + " out of 5" ;
   FinalMessage.textContent = "TIMES UP!";
+  clearInterval(timer);
 }
 
 function startTimer() {
@@ -293,9 +301,11 @@ function startTimer() {
       }
     }
   
-    if (timerCount === 0) {
-      clearInterval(timer);
+    if (timerCount <= 0) {
+
       loseGame();
+      clearInterval(timer);
+    
     }
   }, 1000);
 }

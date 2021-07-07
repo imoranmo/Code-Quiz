@@ -127,6 +127,11 @@ button {
 }
 
 #initials {
+    visibility: visible;
+    text-align: center;
+}
 
+#high {
+ align-content: center;
     text-align: center;
 }
