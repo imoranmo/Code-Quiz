@@ -6,10 +6,12 @@ var response1 = document.querySelector(".response1");
 var response2 = document.querySelector(".response2");
 var response3 = document.querySelector(".response3");
 var response4 = document.querySelector(".response4");
+var ScoreList = document.querySelector("#high");
+var ScoreForm = document.querySelector("#initials");
+var InitialsInput = document.querySelector("#input");
 
 
 var RightCounter= 0;
-var WrongCounter= 0;
 var timer;
 var timerCount;
 var IsCorrect= false;
@@ -20,6 +22,8 @@ var options3 = ["<javascript>", "if i =! 5 then", "if i = 5 then", "for (i = 0; 
 var options4 = ["<js>", "if i <> 5", "if i == 5 then", "for i = 1 to 5", "onclick" ]
 var CorrectResponse = ["<script>", "if (i != 5)", "if (i == 5)", "for (i = 0; i <= 5; i++)", "onclick" ]
 var QuestionNumber = 0;
+var HighScores = []
+var HighScoreIntial = []
 
 
 function Question1() {
@@ -36,7 +40,9 @@ function Question1() {
 }
 
 function Question2() {
-    QuestionNumber++;
+
+    if (QuestionNumber < 4){
+    QuestionNumber++
     question.textContent = questions[QuestionNumber]
     response1.textContent = options1[QuestionNumber]
     response2.textContent = options2[QuestionNumber]
@@ -48,13 +54,28 @@ function Question2() {
     response4.disabled = false;
     document.querySelector(".Next").style.visibility = "hidden"; 
     document.querySelector(".Answer").style.visibility = "hidden";
-    response1.querySelector(".option").style.color = "#dadbdb";
+    response1.style.backgroundColor = "#dadbdb";
+    response2.style.backgroundColor = "#dadbdb";
+    response3.style.backgroundColor = "#dadbdb";
+    response4.style.backgroundColor = "#dadbdb";
+    response1.style.color  = "black"; 
+    response2.style.color  = "black"; 
+    response3.style.color  = "black"; 
+    response4.style.color  = "black"; 
    
     response1.addEventListener("click", Answer1)
     response2.addEventListener("click", Answer2)
     response3.addEventListener("click", Answer3)
     response4.addEventListener("click", Answer4)
    }
+
+   else if (QuestionNumber >= 4) {
+    document.querySelector(".intro").style.display = "none";
+    document.querySelector(".question").style.display = "none";
+    document.querySelector(".Results").style.display = "flex";
+    document.querySelector(".Score").textContent = "Your Score is " + RightCounter + " out of 5" ;
+   }
+}
    
 
 function Answer1() {
@@ -168,8 +189,77 @@ function StartGame () {
     document.querySelector(".intro").style.display = "none";
     document.querySelector(".question").style.display = "flex";
     Question1();
-    NextButton.addEventListener("click", Question2); }
+    NextButton.addEventListener("click", Question2); 
 
-
+}
 
 startButton.addEventListener("click", StartGame)
+
+function ShowScore() {
+    
+    high.innerHTML = "";
+  
+    for (var i = 0; i < HighScores.length; i++) {
+      var HighScore = HighScores[i];
+      var HighScoreIntials = HighScoreIntial[i];
+  
+      var li = document.createElement("li");
+      li.textContent = HighScore + " " + HighScoreIntials;
+      li.setAttribute("data-index", i);
+  
+      ScoreList.appendChild(li);
+    }
+  }
+
+function init() {
+
+    var storedScores = JSON.parse(localStorage.getItem("HighScores"));
+    var storedInitals = JSON.parse(localStorage.getItem("HighScoreIntial"));
+  
+    if (storedScores !== null) {
+        HighScores = storedScores;
+        HighScoreIntial = storedInitals
+    }
+  
+    ShowScore();
+  }
+  
+  function storedScores() {
+
+    localStorage.setItem("HighScores", JSON.stringify(HighScores));
+    localStorage.setItem("HighScoreIntial", JSON.stringify(HighScoreIntial));
+  
+  }
+  
+  
+  ScoreForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+  
+    var ScoreText = InitialsInput.value.trim();
+    var FinalScore = RightCounter
+    if (ScoreText === "") {
+      return;
+    }
+  
+    HighScores.push(ScoreText);
+    HighScoreIntial.push(FinalScore);
+    ScoreList.value = "";
+  
+    storedScores();
+    ShowScore();
+  });
+  
+  ScoreList.addEventListener("click", function(event) {
+    var element = event.target;
+  
+    if (element.matches("button") === true) {
+
+      var index = element.parentElement.getAttribute("data-index");
+      HighScores.splice(index, 1);
+  
+      ShowScore();
+      storedScores();
+    }
+  });
+  
+  init()
